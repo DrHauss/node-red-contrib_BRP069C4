@@ -11,13 +11,9 @@ const options = {
     proxyPort: 8887,              // required: use this port for the proxy and point your client device to this port
     proxyWebPort: 8889,           // required: use this port for the proxy web interface to get the certificate and start Link for login
     proxyListenBind: '0.0.0.0',   // optional: set this to bind the proxy to a special IP, default is '0.0.0.0'
-    proxyDataDir: __dirname       // Directory to store certificates and other proxy relevant data to
+    proxyDataDir: RED.settings.userDir       // Directory to store certificates and other proxy relevant data to
 };
 
-//setNodeStatus({fill: "red", shape: "ring", text: "login failed"});
-//setNodeStatus({fill: "green", shape: "dot", text: "connected"});
-
-//node.debug(" ", func, JSON.stringify(funcArgs.slice(0,-1)).slice(1,-1));
 
 module.exports = function (RED) {
 
@@ -51,7 +47,7 @@ module.exports = function (RED) {
                 }
                 // Load Tokens if they already exist on disk
 
-                const tokenFile = path.join(__dirname, 'tokenset.json');
+                const tokenFile = path.join(RED.settings.userDir, 'tokenset.json');
 
 
                 if (fs.existsSync(tokenFile)) {
@@ -78,7 +74,6 @@ module.exports = function (RED) {
                     exit;
                 }
 
-                //const daikinDeviceDetails = await daikinCloud.getCloudDeviceDetails();
                 updateDevices();
                 setNodeStatus({ fill: "blue", shape: "dot", text: "Waiting..." });
             } catch (error) {
@@ -93,15 +88,12 @@ module.exports = function (RED) {
             const payload = msg.payload;
             const topic = msg.topic;
 
-            //console.log(`Payload: ${payload}, topic: ${topic}`);
 
             switch (topic) {
                 case 'get':
                     updateDevices();
-                    //sendAllDevices(msg);
                     if (devices) {
                         msg.payload = devices;
-                        //console.log(devices);
                         node.send(msg);
                         setNodeStatus({ fill: "green", shape: "dot", text: "updated" });
                     } else {
@@ -192,7 +184,4 @@ module.exports = function (RED) {
         }
     });
 
-    // RED.events.on("nodes-started", () => {
-    //     // Start after all nodes are started.
-    // });
 }
