@@ -34,8 +34,8 @@ module.exports = function (RED) {
         node.init = async function () {
             try {
                 let tokenSet;
-                let username;
-                let password;
+                let username = "";
+                let password = "";
                 setNodeStatus({ fill: "gray", shape: "dot", text: "Connecting..." });
 
                 // Retrieve username + password from node config
