@@ -17,23 +17,36 @@
             return this.name || "daikin_brp069c4";
         }
     });
+    oneditprepare: function () {
+        $(".my-button-group").on("click", function () {
+            $(".my-button-group").removeClass("selected");
+            $(this).addClass("selected");
+
+        })
+    }
 </script>
 <script type="text/x-red" data-template-name="daikin_brp069c4">
-    <div class="form-row">
-        <label for="node-input-name"><i class="icon-tag"></i>Name</label>
-        <input type="text" id="node-input-name" placeholder="Name">
-    </div>
-    <div class="form-row">
-        <label for="node-input-token"><i class="fa fa-tag"></i>Token</label>
-        <input type="text" id="node-input-token">
-    </div>
-    <div class="form-row">
-        <label for="node-input-username"><i class="fa fa-user"></i>Username</label>
-        <input type="text" id="node-input-username">
-    </div>
-    <div class="form-row">
-        <label for="node-input-password"><i class="fa fa-key"></i>Password</label>
-        <input type="password" id="node-input-password">
+        <div class="form-row">
+            <label for="node-input-name"><i class="icon-tag"></i>Name</label>
+            <input type="text" id="node-input-name" placeholder="Name">
+        </div>
+        <div class="form-row">
+            <label for="node-input-token"><i class="fa fa-tag"></i>Token</label>
+            <input type="text" id="node-input-token">
+        </div>
+        <div class="form-row">
+            <label for="node-input-username"><i class="fa fa-user"></i>Username</label>
+            <input type="text" id="node-input-username">
+        </div>
+        <div class="form-row">
+            <label for="node-input-password"><i class="fa fa-key"></i>Password</label>
+            <input type="password" id="node-input-password">
+        </div>
+        <div class="form-row">
+            <span class="button-group">
+                <button type="button" class="red-ui-button toggle selected my-button-group">OFF</button>
+                <button type="button" class="red-ui-button toggle my-button-group">ON</button>
+            </span>
     </div>
 </script>
 <script type ="text/x-red" data-help-name="daikin_brp069c4">
