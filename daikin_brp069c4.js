@@ -24,7 +24,7 @@ module.exports = function (RED) {
     function daikin_brp069c4Node(config) {
         RED.nodes.createNode(this, config);
         let node = this;
-
+        options.logLevel = config.logLevel
         let daikinCloud;
         let devices;
 
@@ -37,8 +37,8 @@ module.exports = function (RED) {
                 setNodeStatus({ fill: "gray", shape: "dot", text: "Connecting..." });
 
                 // Retrieve username + password from node config
-                const username = config.username;
-                const password = config.password;
+                const username = this.credentials.username;
+                const password = this.credentials.password;
 
                 // Load Tokens if they already exist on disk
 
