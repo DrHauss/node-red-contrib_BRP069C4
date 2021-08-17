@@ -177,7 +177,7 @@ module.exports = function (RED) {
         node.init();
     };
 
-    RED.nodes.registerType("daikin_brp069c4", daikin_brp069c4Node, {
+    RED.nodes.registerType("Daikin-Cloud-Controller", daikin_brp069c4Node, {
         credentials: {
             username: { type: "text" },
             password: { type: "password" }

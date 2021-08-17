@@ -1,5 +1,5 @@
 {
-  "name": "node-red-contrib-brp069c4",
+  "name": "node-red-contrib-daikin-cloud",
   "version": "0.0.8",
   "description": "Experimental node-red daikin cloud controller",
   "main": "daikin_brp069c4.js",
@@ -21,7 +21,7 @@
   },
   "node-red": {
     "nodes": {
-      "daikin_brp069c4": "daikin_brp069c4.js"
+      "Daikin-Cloud-Controller": "daikin_brp069c4.js"
     }
   }
 }
