@@ -27,6 +27,7 @@ module.exports = function (RED) {
         options.logLevel = config.logLevel
         let daikinCloud;
         let devices;
+        let tokensave = config.tokensave;
 
         node.init = async function () {
             try {
@@ -51,6 +52,8 @@ module.exports = function (RED) {
                 // Load Tokens if they already exist on disk
 
                 const tokenFile = path.join(__dirname, 'tokenset.json');
+
+
                 if (fs.existsSync(tokenFile)) {
                     tokenSet = JSON.parse(fs.readFileSync(tokenFile).toString());
                     node.debug('tokenset is read');
@@ -62,20 +65,18 @@ module.exports = function (RED) {
                 } else {
                     if (username.length > 0 && password.length > 0 && username.includes('@')) {
                         daikinCloud = new DaikinCloud(tokenSet, options);
-                        daikinCloud.on('token_update', tokenSet => {
-                            setNodeStatus({ fill: "blue", shape: "dot", text: "UPDATED tokens" });
-                            fs.writeFileSync(tokenFile, JSON.stringify(tokenSet));
-                        });
+                        if (tokensave == "1") {
+                            daikinCloud.on('token_update', tokenSet => {
+                                setNodeStatus({ fill: "blue", shape: "dot", text: "UPDATED tokens" });
+                                fs.writeFileSync(tokenFile, JSON.stringify(tokenSet));
+                            });
+                        }
                         const resultTokenSet = await daikinCloud.login(username, password);
                     } else {
                         setNodeStatus({ fill: "red", shape: "dot", text: "tokenset.json is not found and no credentials added to the node config" });
                     }
                     exit;
                 }
-
-
-                // Event that will be triggered on new or updated tokens, save into file
-
 
                 //const daikinDeviceDetails = await daikinCloud.getCloudDeviceDetails();
                 updateDevices();
@@ -162,6 +163,23 @@ module.exports = function (RED) {
         function setNodeStatus({ fill, shape, text }) {
             var dDate = new Date();
             node.status({ fill: fill, shape: shape, text: text + " (" + dDate.toLocaleTimeString() + ")" })
+        }
+
+        function deleteTokenFile(tokenFile) {
+            try {
+                if (fs.existsSync(tokenFile)) {
+                    let stats = fs.statSync(tokenFile);
+                    let ctime = stats.ctime;
+                    let days = (new Date().getTime() - mtime) / (1000 * 60 * 60 * 24);
+                    if (days > 20) {
+                        node.warn("tokenfile created >20 days - will be deleted");
+                        fs.unlinkSync(tokenFile);
+                    }
+
+                }
+            } catch (error) {
+                node.error(error);
+            }
         }
 
         node.init();

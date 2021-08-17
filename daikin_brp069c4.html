@@ -4,7 +4,8 @@
         color: '#a6bbcf',
         defaults: {
             name: { value: "" },
-            loglevel: { value: "warn"}
+            loglevel: { value: "warn" },
+            tokensave: {value: "0" }
         },
         credentials: {
             username: { type: "text"},
@@ -20,25 +21,32 @@
 
 </script>
 <script type="text/x-red" data-template-name="daikin_brp069c4">
-        <div class="form-row">
-            <label for="node-input-name"><i class="icon-tag"></i>Name</label>
-            <input type="text" id="node-input-name" placeholder="Name">
-        </div>
-        <div class="form-row">
-            <label for="node-input-username"><i class="fa fa-user"></i>Username</label>
-            <input type="text" id="node-input-username">
-        </div>
-        <div class="form-row">
-            <label for="node-input-password"><i class="fa fa-key"></i>Password</label>
-            <input type="password" id="node-input-password">
-        </div>
-        <div class="form-row">
-            <label for="node-input-logging">Logging</label>
-            <select style="width:24%" id="node-input-loglevel">
-                <option value="debug">DEBUG</option>
-                <option value="warn">WARN</option>
-            </select>
-        </div>
+    <div class="form-row">
+        <label for="node-input-name"><i class="icon-tag"></i>Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+    <div class="form-row">
+        <label for="node-input-username"><i class="fa fa-user"></i>Username</label>
+        <input type="text" id="node-input-username">
+    </div>
+    <div class="form-row">
+        <label for="node-input-password"><i class="fa fa-key"></i>Password</label>
+        <input type="password" id="node-input-password">
+    </div>
+    <div class="form-row">
+        <label for="node-input-loglevel">Logging</label>
+        <select style="width:24%" id="node-input-loglevel">
+            <option value="debug">DEBUG</option>
+            <option value="warn">WARN</option>
+        </select>
+    </div>
+    <div class="form-row">
+        <label for="node-input-tokensave">Save Token to File</label>
+        <select style="width:24%" id="node-input-tokensave">
+            <option value="1">Enabled</option>
+            <option value="0">Disabled</option>
+        </select>
+    </div>
 </script>
 <script type ="text/x-red" data-help-name="daikin_brp069c4">
     <p>Node to find the number of characters in payload</p>
