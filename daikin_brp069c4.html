@@ -48,6 +48,18 @@
         </select>
     </div>
 </script>
-<script type ="text/x-red" data-help-name="daikin_brp069c4">
-    <p>Node to find the number of characters in payload</p>
+<script type="text/x-red" data-help-name="daikin_brp069c4">
+    <h3 id="toc_4">Daiking Cloud Control Modul</h3>
+    <p> The Cloud Module offers the ability to communicate with Daikin Cloud Devices. This is working with Devices with gateway type BRP069C4 and also with devices before when they are configured in the Daikin Cloud Controller Account.</p>
+    <p> To use the module you need to store a valid tokenset.json in the module directory or use the login with user credentials in the Node's config. </p>
+    <ul>
+        <li><strong>Name</strong>: Name of this node</li>
+        <li><strong>Username</strong>: Username of Daikin Cloud Controller (no social login is possible here! only e-Mail) - When empty the Node required a valid tokenset.json in module directory</li>
+        <li><strong>Password</strong>: Password of the Daiking Cloud Controller User</li>
+        <li><strong>Logging</strong>: Log Level to console Log of Daikin Cloud Controller Module</li>
+        <li><strong>Save Token to File</strong>: Define if you want to save the token after login to a file. This reduce the amount creation of new tokens. When the token expires you need to remove the tokenset.json file in the node folder (every 30 days)"
+    </ul>
+    <p>The handling is defined via the <strong>msg.topic</strong> value:</p>
+    <ul><li><strong>get</strong>: msg.payload will be set with all daikin cloud informations</li>
+    <ul><li><strong>set</strong>: set device in daikin cloud with mentioned properties</li>
 </script>
