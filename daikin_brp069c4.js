@@ -11,7 +11,7 @@ const options = {
     proxyPort: 8887,              // required: use this port for the proxy and point your client device to this port
     proxyWebPort: 8889,           // required: use this port for the proxy web interface to get the certificate and start Link for login
     proxyListenBind: '0.0.0.0',   // optional: set this to bind the proxy to a special IP, default is '0.0.0.0'
-    proxyDataDir: RED.settings.userDir       // Directory to store certificates and other proxy relevant data to
+    proxyDataDir: __dirname       // Directory to store certificates and other proxy relevant data to
 };
 
 
