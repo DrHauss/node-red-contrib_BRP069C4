@@ -7,23 +7,24 @@
             token: { value: "" }
         },
         credentials: {
-            username: { value: "" },
-            password: { value: "" }
+            username: { type: "text"},
+            password: { type: "password"}
         },
         inputs: 1,
         outputs: 1,
         icon: "white-globe.svg",
         label: function () {
             return this.name || "daikin_brp069c4";
+        },
+        oneditprepare: function () {
+            $(".my-button-group").on("click", function () {
+                $(".my-button-group").removeClass("selected");
+                $(this).addClass("selected");
+
+            })
         }
     });
-    oneditprepare: function () {
-        $(".my-button-group").on("click", function () {
-            $(".my-button-group").removeClass("selected");
-            $(this).addClass("selected");
 
-        })
-    }
 </script>
 <script type="text/x-red" data-template-name="daikin_brp069c4">
         <div class="form-row">

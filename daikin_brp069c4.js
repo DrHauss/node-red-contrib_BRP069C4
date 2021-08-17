@@ -34,12 +34,23 @@ module.exports = function (RED) {
         node.init = async function () {
             try {
                 let tokenSet;
+                let username;
+                let password;
                 setNodeStatus({ fill: "gray", shape: "dot", text: "Connecting..." });
 
                 // Retrieve username + password from node config
-                const username = this.credentials.username;
-                const password = this.credentials.password;
-
+                var credentials = this.credentials;
+                if (credentials) {
+                    if ((credentials.hasOwnProperty("username")) && (credentials.hasOwnProperty("password"))) {
+                        username = credentials.username;
+                        password = credentials.password;
+                        node.debug("Username: " + username + " Password: " + password);
+                    } else {
+                        node.error("You need to fill out Username and Password together");
+                    }
+                } else {
+                    node.warn("No credentials provided");
+                }
                 // Load Tokens if they already exist on disk
 
                 const tokenFile = path.join(__dirname, 'tokenset.json');
