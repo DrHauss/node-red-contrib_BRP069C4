@@ -28,9 +28,6 @@ module.exports = function (RED) {
         let daikinCloud;
         let devices;
 
-        //console.log(JSON.parse(config.token));
-        //config.token = "hallo";
-
         node.init = async function () {
             try {
                 let tokenSet;
@@ -58,10 +55,17 @@ module.exports = function (RED) {
                     tokenSet = JSON.parse(fs.readFileSync(tokenFile).toString());
                     node.debug('tokenset is read');
                     daikinCloud = new DaikinCloud(tokenSet, options);
-
+                    daikinCloud.on('token_update', tokenSet => {
+                        setNodeStatus({ fill: "blue", shape: "dot", text: "UPDATED tokens" });
+                        fs.writeFileSync(tokenFile, JSON.stringify(tokenSet));
+                    });
                 } else {
                     if (username.length > 0 && password.length > 0 && username.includes('@')) {
                         daikinCloud = new DaikinCloud(tokenSet, options);
+                        daikinCloud.on('token_update', tokenSet => {
+                            setNodeStatus({ fill: "blue", shape: "dot", text: "UPDATED tokens" });
+                            fs.writeFileSync(tokenFile, JSON.stringify(tokenSet));
+                        });
                         const resultTokenSet = await daikinCloud.login(username, password);
                     } else {
                         setNodeStatus({ fill: "red", shape: "dot", text: "tokenset.json is not found and no credentials added to the node config" });
@@ -71,15 +75,11 @@ module.exports = function (RED) {
 
 
                 // Event that will be triggered on new or updated tokens, save into file
-                daikinCloud.on('token_update', tokenSet => {
-                    setNodeStatus({ fill: "blue", shape: "dot", text: "UPDATED tokens" });
-                    fs.writeFileSync(tokenFile, JSON.stringify(tokenSet));
-                });
+
 
                 //const daikinDeviceDetails = await daikinCloud.getCloudDeviceDetails();
                 updateDevices();
                 setNodeStatus({ fill: "blue", shape: "dot", text: "Waiting..." });
-                tokenfileNotFound = false;
             } catch (error) {
                 setNodeStatus({ fill: "red", shape: "dot", text: error });
                 node.warn(error);
