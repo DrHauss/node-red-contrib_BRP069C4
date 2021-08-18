@@ -1,7 +1,7 @@
 {
   "name": "node-red-contrib-daikin-cloud",
-  "version": "0.0.8",
-  "description": "Experimental node-red daikin cloud controller",
+  "version": "0.0.9",
+  "description": "Node-red Daikin Cloud Controller (experimental)",
   "main": "daikin_brp069c4.js",
   "repository": {
     "type": "git",
