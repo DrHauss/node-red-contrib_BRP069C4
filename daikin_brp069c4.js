@@ -40,7 +40,7 @@ module.exports = function (RED) {
                         password = credentials.password;
                         node.debug("Username: " + username + " Password: " + password);
                     } else {
-                        node.error("You need to fill out Username and Password together");
+                        node.warn("You need to fill out Username and Password together or leave both empty");
                     }
                 } else {
                     node.warn("No credentials provided");
@@ -78,10 +78,9 @@ module.exports = function (RED) {
                 setNodeStatus({ fill: "blue", shape: "dot", text: "Waiting..." });
             } catch (error) {
                 setNodeStatus({ fill: "red", shape: "dot", text: error });
-                node.warn(error);
+                node.error(error);
             }
         };
-        node.onedit
         node.on('input', function (msg, send, done) {
             send = send || function () { node.send.apply(node, arguments) }
 
@@ -104,6 +103,8 @@ module.exports = function (RED) {
                 case 'set':
                     const device = getDeviceBySsid(payload.ssid);
                     setDeviceData(device, payload.managementPoint, payload.dataPoint, payload.dataPointPath, payload.value);
+                    break;
+                case 'reset':
                     break;
                 default:
                     send(null);
@@ -140,7 +141,7 @@ module.exports = function (RED) {
                 setNodeStatus({ fill: "green", shape: "dot", text: "Set data succesfully to " + value });
             } catch (error) {
                 setNodeStatus({ fill: "red", shape: "dot", text: error });
-                node.warn(error);
+                node.error(error);
             }
         }
 
@@ -149,7 +150,7 @@ module.exports = function (RED) {
                 devices = await daikinCloud.getCloudDevices();
             } catch (error) {
                 setNodeStatus({ fill: "red", shape: "dot", text: error });
-                node.warn(error);
+                node.error(error);
             }
         }
         function setNodeStatus({ fill, shape, text }) {
