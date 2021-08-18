@@ -16,7 +16,7 @@
   "author": "Bart Janisse",
   "license": "MIT",
   "dependencies": {
-    "daikin-controller-cloud": ">=0.2.0",
+    "daikin-controller-cloud": "git+https://github.com/DrHauss/daikin-controller-cloud.git",
     "user": "0.0.0"
   },
   "node-red": {
