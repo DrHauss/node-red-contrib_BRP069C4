@@ -19,7 +19,7 @@
         label: function () {
             return this.name || "Daikin-Cloud-Controller";
         },
-        oneditprepare: {
+        oneditprepare: function() {
             $("#node-input-retry").typedInput({
                 type: "num",
                 types: ["num"],
