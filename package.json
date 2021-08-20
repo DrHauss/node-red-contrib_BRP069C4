@@ -27,14 +27,14 @@
   },
     "contributors": [
       {
-        "name": "Christian Hauﬂ",
+        "name": "Christian Hau√ü",
         "email": "christian@hauss.name",
         "url": "https://github.com/DrHauss/node-red-contrib_BRP069C4"
       }
     ],
     "license": "MIT",
     "dependencies": {
-      "daikin-controller-cloud": "0.2.0",
+      "daikin-controller-cloud": "0.2.0"
     },
     "node-red": {
       "nodes": {
