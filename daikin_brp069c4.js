@@ -40,7 +40,6 @@ module.exports = function (RED) {
                     if ((credentials.hasOwnProperty("username")) && (credentials.hasOwnProperty("password"))) {
                         username = credentials.username;
                         password = credentials.password;
-                        node.debug("Username: " + username + " Password: " + password);
                     } else {
                         node.warn("You need to fill out Username and Password together or leave both empty");
                     }
