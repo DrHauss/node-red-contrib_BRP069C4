@@ -16,6 +16,8 @@ const options = {
     communicationRetries: 3       // Amount of retries when connection times out
 };
 let globalTokenSet;
+let lastUpdated = 0;
+let devices;
 
 module.exports = function (RED) {
 
@@ -24,7 +26,6 @@ module.exports = function (RED) {
         let node = this;
         options.logLevel = config.logLevel
         let daikinCloud;
-        let devices;
         let tokensave = config.tokensave;
 
         node.init = async function () {
@@ -46,7 +47,7 @@ module.exports = function (RED) {
                         }
                     }
                 } else {
-                    node.warn("No credentials provided");
+                    node.warn("No credentials object provided");
                 }
 
                 // Load individual settings for timeout and retry
@@ -111,7 +112,6 @@ module.exports = function (RED) {
                     if (devices) {
                         msg.payload = devices;
                         node.send(msg);
-                        setNodeStatus({ fill: "green", shape: "dot", text: "updated" });
                     } else {
                         node.send(null);
                         setNodeStatus({ fill: "gray", shape: "dot", text: "failed to get devices" });
@@ -164,7 +164,16 @@ module.exports = function (RED) {
 
         async function updateDevices() {
             try {
-                devices = await daikinCloud.getCloudDevices();
+                
+                let timeDiff = ((new Date().getTime() - lastUpdated) / 1000);
+                if (timeDiff >= 60) {
+                    devices = await daikinCloud.getCloudDevices();
+                    lastUpdated = (new Date().getTime());
+                    setNodeStatus({ fill: "green", shape: "dot", text: "updated devices" });
+                } else {
+                    setNodeStatus({ fill: "green", shape: "dot", text: "using cached devices" });
+                }
+                
             } catch (error) {
                 setNodeStatus({ fill: "red", shape: "dot", text: error });
                 node.error(error);
