@@ -15,7 +15,7 @@ const options = {
     communicationTimeout: 10000,  // Amount of ms to wait for request and responses before timeout
     communicationRetries: 3       // Amount of retries when connection times out
 };
-
+let globalTokenSet;
 
 module.exports = function (RED) {
 
@@ -62,6 +62,7 @@ module.exports = function (RED) {
 
                 if (fs.existsSync(tokenFile)) {
                     tokenSet = JSON.parse(fs.readFileSync(tokenFile).toString());
+                    globalTokenSet = tokenSet;
                     node.debug('tokenset is read');
                     daikinCloud = new DaikinCloud(tokenSet, options);
                     daikinCloud.on('token_update', tokenSet => {
@@ -69,19 +70,24 @@ module.exports = function (RED) {
                         fs.writeFileSync(tokenFile, JSON.stringify(tokenSet));
                     });
                 } else {
-                    if (username.length > 0 && password.length > 0 && username.includes('@')) {
-                        daikinCloud = new DaikinCloud(tokenSet, options);
-                        if (tokensave == "1") {
-                            daikinCloud.on('token_update', tokenSet => {
-                                setNodeStatus({ fill: "blue", shape: "dot", text: "UPDATED tokens" });
-                                fs.writeFileSync(tokenFile, JSON.stringify(tokenSet));
-                            });
-                        }
-                        const resultTokenSet = await daikinCloud.login(username, password);
+                    if (globalTokenSet) {
+                        daikinCloud = new DaikinCloud(globalTokenSet, options);
+                        node.debug('')
                     } else {
-                        setNodeStatus({ fill: "red", shape: "dot", text: "tokenset.json is not found and no credentials added to the node config" });
+                        if (username.length > 0 && password.length > 0 && username.includes('@')) {
+                            daikinCloud = new DaikinCloud(tokenSet, options);
+                            if (tokensave == "1") {
+                                daikinCloud.on('token_update', tokenSet => {
+                                    setNodeStatus({ fill: "blue", shape: "dot", text: "UPDATED tokens" });
+                                    fs.writeFileSync(tokenFile, JSON.stringify(tokenSet));
+                                });
+                            }
+                            globalTokenSet = await daikinCloud.login(username, password);
+                        } else {
+                            setNodeStatus({ fill: "red", shape: "dot", text: "tokenset.json is not found and no credentials added to the node config" });
+                        }
                     }
-                    exit;
+                  //  exit;
                 }
 
                 updateDevices();
