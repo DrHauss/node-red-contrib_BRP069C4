@@ -5,7 +5,9 @@
         defaults: {
             name: { value: "" },
             loglevel: { value: "warn" },
-            tokensave: {value: "0" }
+            tokensave: { value: "0" },
+            timeout: { value: "10000" },
+            retry: { value: "3"}
         },
         credentials: {
             username: { type: "text"},
@@ -16,6 +18,18 @@
         icon: "white-globe.svg",
         label: function () {
             return this.name || "Daikin-Cloud-Controller";
+        },
+        oneditprepare: {
+            $("#node-input-retry").typedInput({
+                type: "num",
+                types: ["num"],
+                typeField: "#node-input-retry-type"
+            }),
+            $("#node-input-timeout").typedInput({
+                type: "num",
+                types: ["num"],
+                typeField: "#node-input-timeout-type"
+            })
         }
     });
 
@@ -41,11 +55,21 @@
         </select>
     </div>
     <div class="form-row">
-        <label for="node-input-tokensave">Save Token to File</label>
+        <label for="node-input-tokensave">Save Token</label>
         <select id="node-input-tokensave">
             <option value="1">Enabled</option>
             <option value="0">Disabled</option>
         </select>
+    </div>
+    <div class"form-row">
+        <label for="node-input-timeout"><i class="fa fa-hourglass"></i>Timeout</label>
+        <input type="text" id="node-input-timeout">
+        <input type="hidden" id="node-input-timeout-type">
+    </div>
+    <div class"form-row">
+        <label for="node-input-retry"><i class="fa fa-wave-square"></i>Retries</label>
+        <input type="text" id="node-input-retry">
+        <input type="hidden" id="node-input-retry-type">
     </div>
 </script>
 <script type="text/x-red" data-help-name="Daikin-Cloud-Controller">

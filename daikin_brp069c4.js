@@ -33,7 +33,7 @@ module.exports = function (RED) {
                 let username = "";
                 let password = "";
                 setNodeStatus({ fill: "gray", shape: "dot", text: "Connecting..." });
-
+                
                 // Retrieve username + password from node config
                 var credentials = this.credentials;
                 if (credentials) {
@@ -47,8 +47,16 @@ module.exports = function (RED) {
                 } else {
                     node.warn("No credentials provided");
                 }
-                // Load Tokens if they already exist on disk
 
+                // Load individual settings for timeout and retry
+                if (config.timeout) {
+                    options.communicationTimeout = config.timeout;
+                }
+                if (config.retry) {
+                    options.communicationRetries = config.retry;
+                }
+
+                // Load Tokens if they already exist on disk
                 const tokenFile = path.join(RED.settings.userDir, 'tokenset.json');
 
 
