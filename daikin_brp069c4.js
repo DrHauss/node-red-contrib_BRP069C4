@@ -71,7 +71,7 @@ module.exports = function (RED) {
                 } else {
                     if (globalTokenSet) {
                         daikinCloud = new DaikinCloud(globalTokenSet, options);
-                        node.debug('')
+                        node.debug("globalTokenSet found and used")
                     } else {
                         if (username.length > 0 && password.length > 0 && username.includes('@')) {
                             daikinCloud = new DaikinCloud(tokenSet, options);
