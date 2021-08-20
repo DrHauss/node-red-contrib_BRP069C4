@@ -1,14 +1,32 @@
-# General Information
+# node-red-contrib-daikin-cloud
+
+[![NPM version](http://img.shields.io/npm/v/node-red-contrib-daikin-cloud.svg)](https://www.npmjs.com/package/node-red-contrib-daikin-cloud)
+[![Downloads](https://img.shields.io/npm/dm/node-red-contrib-daikin-cloud.svg)](https://www.npmjs.com/package/node-red-contrib-daikin-cloud)
+![Test and Release](https://github.com/DrHauss/node-red-contrib_BRP069C4/workflows/Test%20and%20Release/badge.svg)
 
 This version is based on node-red-contrib_BRP069C4 from bartjanisse and is enhanced by DrHauss.
 
+Node-Red Node for accessing Daikin Cloud to control AC devices and get their status. 
 
-## Experimetal
+## Important Information
 
-This is just an experiment to test the new daikin cloud controller in node-red.
+When you integrate this Node please make sure you do not refresh data out of the cloud too fast. Please still think about the needed resources and costs on Daikin side to operate the cloud services and only allow meaningful poll intervals!
 
-Use at your own risk!!
+This Node doesn't use a public and documented API for controlling the AC devices. You are using this on your own risk.
 
-## Keywords
+## Dependencies
+**Requires a valid Daikin Cloud Account which is authenticated via e-mail and password (no direct social login is possible!) or a valid tokenset.json which could be generated via daikin-controller-cloud module ([Details here](https://github.com/Apollon77/daikin-controller-cloud/))**
 
-Daikin
+## Changelog
+<!--
+    Placeholder for the next version (at the beginning of the line):
+    ## **WORK IN PROGRESS**
+-->
+### **WORK IN PROGRESS** 0.2.0
+* Implement a timeout and retry for cloud requests
+
+### 0.1.2
+This is the initial release of the enhanced Node-Red Node for Daikin Cloud Controller which bases on [node-red-contrib_BRP069C from bartjanisse](https://github.com/bartjanisse/node-red-contrib_BRP069C4). This version brings the ability to authenticate to Daikin Cloud with Username + Password and added some documentation on the usage of this Node
+
+## TODO
+* Implement a hard limit for receiving data from the cloud (e.a. 1/min.) to prevent spamming the cloud
