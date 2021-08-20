@@ -8,23 +8,38 @@
     "type": "git",
     "url": "https://github.com/DrHauss/node-red-contrib_BRP069C4.git"
   },
+  "bugs": {
+    "url": "https://github.com/DrHauss/node-red-contrib_BRP069C4/issues"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "release": "release-script"
   },
   "keywords": [
     "node-red",
-    "daikin"
+    "daikin",
+    "BRP069C4",
+    "cloud"
   ],
-  "author": "Initial: Bart Janisse - Enhanced by Christian Hauﬂ",
-  "license": "MIT",
-  "dependencies": {
-    "daikin-controller-cloud": "git+https://github.com/DrHauss/daikin-controller-cloud.git",
-    "user": "0.0.0"
+  "author": {
+    "name": "Bart Janisse",
+    "url": "https://github.com/bartjanisse/node-red-contrib_BRP069C4"
   },
-  "node-red": {
-    "nodes": {
-      "Daikin-Cloud-Controller": "daikin_brp069c4.js"
+    "contributors": [
+      {
+        "name": "Christian Hauﬂ",
+        "email": "christian@hauss.name",
+        "url": "https://github.com/DrHauss/node-red-contrib_BRP069C4"
+      }
+    ],
+    "license": "MIT",
+    "dependencies": {
+      "daikin-controller-cloud": "0.2.0",
+      "user": "0.0.0"
+    },
+    "node-red": {
+      "nodes": {
+        "Daikin-Cloud-Controller": "daikin_brp069c4.js"
+      }
     }
-  }  
-}
+  }
