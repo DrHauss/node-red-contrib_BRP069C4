@@ -41,7 +41,9 @@ module.exports = function (RED) {
                         username = credentials.username;
                         password = credentials.password;
                     } else {
-                        node.warn("You need to fill out Username and Password together or leave both empty");
+                        if (!((credentials.username == "") && (credentials.password == ""))) {
+                            node.warn("You need to fill out Username and Password together or leave both empty");
+                        }
                     }
                 } else {
                     node.warn("No credentials provided");
