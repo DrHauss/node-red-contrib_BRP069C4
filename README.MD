@@ -33,6 +33,9 @@ This Node **doesn't** use a public and documented API for controlling the AC dev
 
 ## Changelog
 
+### 0.2.1
+ * Updated Dependencies for daikin-controller-cloud to 0.2.1
+
 ### 0.2.0
  * Implement a timeout and retry for cloud requests (At the moment this requires an updated version of daikin-controller-cloud which is available on [GITHUB](https://github.com/DrHauss/daikin-controller-cloud))
  * Token will be saved globaly so Node can be used multiple times (see Restrictions)
