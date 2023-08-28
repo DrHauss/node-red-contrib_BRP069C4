@@ -34,7 +34,7 @@
     ],
     "license": "MIT",
     "dependencies": {
-      "daikin-controller-cloud": "1.0.4"
+      "daikin-controller-cloud": "1.1.0"
     },
     "node-red": {
       "nodes": {
