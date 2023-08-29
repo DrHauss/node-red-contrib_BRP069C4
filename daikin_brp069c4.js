@@ -92,7 +92,7 @@ module.exports = function (RED) {
                   //  exit;
                 }
 
-                updateDevices(msg);
+                updateDevices();
                 setNodeStatus({ fill: "blue", shape: "dot", text: "Waiting..." });
             } catch (error) {
                 setNodeStatus({ fill: "red", shape: "dot", text: error });
@@ -108,7 +108,7 @@ module.exports = function (RED) {
 
             switch (topic) {
                 case 'get':
-                    updateDevices(msg);
+                    updateDevices();
                     if (devices) {
                         msg.payload = devices;
                         node.send(msg);
@@ -119,7 +119,7 @@ module.exports = function (RED) {
                     break;
                 case 'set':
                     const device = getDeviceBySsid(payload.ssid);
-                    setDeviceData(device, payload.managementPoint, payload.dataPoint, payload.dataPointPath, payload.value,msg);
+                    setDeviceData(device, payload.managementPoint, payload.dataPoint, payload.dataPointPath, payload.value);
                     break;
                 case 'reset':
                     break;
@@ -141,7 +141,7 @@ module.exports = function (RED) {
             return result ? result : null; // or undefined
         }
 
-        async function setDeviceData(device, managementPoint, dataPoint, dataPointPath, value, msg) {
+        async function setDeviceData(device, managementPoint, dataPoint, dataPointPath, value) {
             try {
                 if (dataPoint == 'operationMode') {
                     await device.setData('climateControl', 'onOffMode', 'on');
@@ -158,11 +158,11 @@ module.exports = function (RED) {
                 setNodeStatus({ fill: "green", shape: "dot", text: "Set data succesfully to " + value });
             } catch (error) {
                 setNodeStatus({ fill: "red", shape: "dot", text: error });
-                node.error(error, msg);
+                node.error(error);
             }
         }
 
-        async function updateDevices(msg) {
+        async function updateDevices() {
             try {
                 
                 let timeDiff = ((new Date().getTime() - lastUpdated) / 1000);
@@ -176,7 +176,7 @@ module.exports = function (RED) {
                 
             } catch (error) {
                 setNodeStatus({ fill: "red", shape: "dot", text: error });
-                node.error(error, msg);
+                node.error(error);
             }
         }
         function setNodeStatus({ fill, shape, text }) {
