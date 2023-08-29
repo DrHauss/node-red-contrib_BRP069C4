@@ -92,7 +92,7 @@ module.exports = function (RED) {
                   //  exit;
                 }
 
-                updateDevices();
+                updateDevices(msg);
                 setNodeStatus({ fill: "blue", shape: "dot", text: "Waiting..." });
             } catch (error) {
                 setNodeStatus({ fill: "red", shape: "dot", text: error });
@@ -108,7 +108,7 @@ module.exports = function (RED) {
 
             switch (topic) {
                 case 'get':
-                    updateDevices();
+                    updateDevices(msg);
                     if (devices) {
                         msg.payload = devices;
                         node.send(msg);
@@ -162,7 +162,7 @@ module.exports = function (RED) {
             }
         }
 
-        async function updateDevices() {
+        async function updateDevices(msg) {
             try {
                 
                 let timeDiff = ((new Date().getTime() - lastUpdated) / 1000);
