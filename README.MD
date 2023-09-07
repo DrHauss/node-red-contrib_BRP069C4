@@ -33,7 +33,7 @@ This Node **doesn't** use a public and documented API for controlling the AC dev
 
 ## Changelog
 
-### 0.3.0
+### 0.3.1
  * Updated Dependencies for daikin-controller-cloud to 1.2.3
  * Restrict and Convert input of Retries and Timeout values to numbers only
 
