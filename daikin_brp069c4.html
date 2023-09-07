@@ -7,17 +7,28 @@
             loglevel: { value: "warn" },
             tokensave: { value: "0" },
             timeout: {
-                value: "10000",
+                value: 10000,
                 validate: RED.validators.number()
             },
             retry: {
-                value: "3",
+                value: 3,
                 validate: RED.validators.number()
             }
         },
         credentials: {
             username: { type: "text"},
             password: { type: "password"}
+        },
+        oneditprepare: function () {
+            $("#node-input-retry").typedInput({
+                type:"num",
+                types:["num"]
+            }),
+            $("#node-input-timeout").typedInput({
+                type: "num",
+                types: ["num"]
+            })
+
         },
         inputs: 1,
         outputs: 1,
