@@ -6,7 +6,7 @@ const { exit } = require("process");
 
 const options = {
     logger: console.log,          // optional, logger function used to log details depending on loglevel
-    logLevel: 'debug',            // info, debug optional, Loglevel of Library, default 'warn' (logs nothing by default)
+    logLevel: 'info ',            // info, debug optional, Loglevel of Library, default 'warn' (logs nothing by default)
     proxyOwnIp: '192.168.1.172',  // required, if proxy needed: provide own IP or hostname to later access the proxy
     proxyPort: 8887,              // required: use this port for the proxy and point your client device to this port
     proxyWebPort: 8889,           // required: use this port for the proxy web interface to get the certificate and start Link for login
@@ -24,9 +24,9 @@ module.exports = function (RED) {
     function daikin_brp069c4Node(config) {
         RED.nodes.createNode(this, config);
         let node = this;
-        options.logLevel = config.logLevel
         let daikinCloud;
         let tokensave = config.tokensave;
+        options.logLevel = config.logLevel
 
         node.init = async function () {
             try {
