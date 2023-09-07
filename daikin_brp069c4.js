@@ -52,12 +52,11 @@ module.exports = function (RED) {
 
                 // Load individual settings for timeout and retry
                 if (config.timeout) {
-                    //options.communicationTimeout = config.timeout;
-                    options.communicationTimeout = 10000;
+                    options.communicationTimeout = Number(config.timeout);
+                    
                 }
                 if (config.retry) {
-                    //options.communicationRetries = config.retry;
-                    options.communicationRetries = 3;
+                    options.communicationRetries = Number(config.retry);
                 }
 
                 // Load Tokens if they already exist on disk
