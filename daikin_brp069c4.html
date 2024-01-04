@@ -6,6 +6,7 @@
             name: { value: "" },
             loglevel: { value: "warn" },
             tokensave: { value: "0" },
+            tempsync: { value: "1" },
             timeout: {
                 value: 10000,
                 validate: RED.validators.number()
@@ -67,6 +68,13 @@
         </select>
     </div>
     <div class="form-row">
+        <label for="node-input-tempsync"><i class="fa fa-temperature-full"></i>Sync Temperature</label>
+        <select id="node-input-tempsync">
+            <option value="1">Enabled</option>
+            <option value="0">Disabled</option>
+        </select>
+    </div>
+    <div class="form-row">
         <label for="node-input-timeout"><i class="fa fa-hourglass"></i>Timeout</label>
         <input type="text" id="node-input-timeout">
     </div>
@@ -84,7 +92,8 @@
         <li><strong>Username</strong>: Username of Daikin Cloud Controller (no social login is possible here! only e-Mail) - When empty the Node requires a valid tokenset.json in module directory</li>
         <li><strong>Password</strong>: Password of the Daiking Cloud Controller User</li>
         <li><strong>Logging</strong>: Log Level to console Log of Daikin Cloud Controller Module</li>
-        <li><strong>Save Token to File</strong>: Define if you want to save the token after login to a file. This reduce the amount creation of new tokens. When the token expires you need to remove the tokenset.json file in the node config folder (every 30 days)"
+        <li><strong>Save Token to File</strong>: Define if you want to save the token after login to a file. This reduce the amount creation of new tokens. When the token expires you need to remove the tokenset.json file in the node config folder (every 30 days)</li>
+        <li><strong>Sync Temperature</strong>: Sync Temperature between the different device modes Auto, Heating and Cooling</li>
     </ul>
     <p>The handling is defined via the <strong>msg.topic</strong> value:</p>
     <ul>

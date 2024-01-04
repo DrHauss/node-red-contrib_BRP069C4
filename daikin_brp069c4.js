@@ -1,3 +1,15 @@
+/**
+    * @description      : 
+    * @author           : 
+    * @group            : 
+    * @created          : 04/01/2024 - 21:33:05
+    * 
+    * MODIFICATION LOG
+    * - Version         : 1.0.0
+    * - Date            : 04/01/2024
+    * - Author          : 
+    * - Modification    : 
+**/
 
 const DaikinCloud = require("daikin-controller-cloud");
 const fs = require('fs');
@@ -26,6 +38,8 @@ module.exports = function (RED) {
         let node = this;
         let daikinCloud;
         let tokensave = config.tokensave;
+        let tempsync = config.tempsync;
+        
         options.logLevel = config.logLevel
 
         node.init = async function () {
@@ -57,6 +71,9 @@ module.exports = function (RED) {
                 }
                 if (config.retry) {
                     options.communicationRetries = Number(config.retry);
+                }
+                if (tempsync == null) {
+                    tempsync = "1";
                 }
 
                 // Load Tokens if they already exist on disk
@@ -147,7 +164,7 @@ module.exports = function (RED) {
                 if (dataPoint == 'operationMode') {
                     await device.setData('climateControl', 'onOffMode', 'on');
                 }
-                if (dataPoint === 'temperatureControl') {
+                if (dataPoint === 'temperatureControl' && tempsync == "1") {
                     // For now always set all temperatures equal
                     await device.setData(managementPoint, dataPoint, '/operationModes/heating/setpoints/roomTemperature', value);
                     await device.setData(managementPoint, dataPoint, '/operationModes/cooling/setpoints/roomTemperature', value);
