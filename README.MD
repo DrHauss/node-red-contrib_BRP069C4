@@ -33,6 +33,8 @@ This Node **doesn't** use a public and documented API for controlling the AC dev
 
 ## Changelog
 
+### 0.4.0
+ * Added option to disable Temperature sync for modes Auto, Heating and Cooling
 ### 0.3.3
  * Updated Dependencies for daikin-controller-cloud to 1.2.4
 ### 0.3.2
