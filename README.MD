@@ -1,3 +1,9 @@
+# THIS CODE IS DEPRECATED AND WILL NO LONGER BE MAINTAINED by me
+
+
+
+
+
 # node-red-contrib-daikin-cloud
 
 [![NPM version](http://img.shields.io/npm/v/node-red-contrib-daikin-cloud.svg)](https://www.npmjs.com/package/node-red-contrib-daikin-cloud)
